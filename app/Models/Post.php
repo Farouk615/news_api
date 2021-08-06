@@ -16,4 +16,13 @@ class Post extends Model
         'vote_up',
         'vote_down',
     ];
+    public function author(){ // foreign key of author (author_id)
+        return $this->belongsTo(User::class);
+    }
+    public  function  comments(){
+        return $this->hasMany(Comments::class);
+    }
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

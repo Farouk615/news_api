@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/categories',function (){ // get all in JSON form
+   return \App\Models\Category::all();
+});
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
