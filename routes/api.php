@@ -21,5 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 Route::get('authors','App\Http\Controllers\app\UserController@index');
 Route::get('authors/{id}','App\Http\Controllers\app\UserController@show');
+Route::get('authors/{id}/posts','App\Http\Controllers\app\UserController@posts');
+Route::get('authors/{id}/comments','App\Http\Controllers\app\UserController@comments');
+
 // end user related
 
