@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+/* User related
+*/
+Route::get('authors','App\Http\Controllers\app\UserController@index');
+Route::get('authors/{id}','App\Http\Controllers\app\UserController@show');
+// end user related
+
