@@ -38,7 +38,14 @@ Route::get('posts','App\Http\Controllers\app\PostController@index');
 Route::get('posts/{id}','App\Http\Controllers\app\PostController@show');
 Route::get('posts/{id}/comments','App\Http\Controllers\app\PostController@comments');
 
-
-
 // end category related
 
+/**
+ *Authentification  related
+ */
+Route::post('register','App\Http\Controllers\app\UserController@store');
+Route::post('token','App\Http\Controllers\app\UserController@getToken');
+
+
+
+// end auth related

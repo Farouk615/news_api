@@ -5,10 +5,12 @@ namespace App\Http\Controllers\app;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthorCommentsRessources;
 use App\Http\Resources\AuthorPostRessources;
+use App\Http\Resources\TokenRessources;
 use App\Http\Resources\UserIdRessources;
 use App\Http\Resources\UserRessources;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -31,7 +33,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -76,5 +78,17 @@ class UserController extends Controller
         $user = User::find($id);
         $comments = $user->comments()->paginate(5);
         return new AuthorCommentsRessources($comments);
+    }
+    public function getToken(Request $request){
+        $request->validate([
+            'email'=>'required',
+            'password'=>'required',
+        ]);
+        $credentials = $request->only('email','password');
+        if (Auth::attempt($credentials)){
+            $user=User::where('email',$request->get('email'))->first();
+            return new TokenRessources(['token'=>$user->api_token]);
+        }
+        return 'user not found';
     }
 }
