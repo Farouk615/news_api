@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
 
             $table->string('title');
             $table->text('content');
-            $table->string('featured_image');
+            $table->string('featured_image')->nullable();
 
             $table->integer('vote_up')->nullable();
             $table->integer('vote_down')->nullable();
