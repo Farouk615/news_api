@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use http\Env\Request;
 
 class UserObserver
 {
@@ -14,9 +15,10 @@ class UserObserver
      */
     public function created(User $user)
     {
+    }
+    public function creating(User $user){
         $user->api_token = bin2hex(openssl_random_pseudo_bytes(20));
     }
-
     /**
      * Handle the User "updated" event.
      *

@@ -11,6 +11,7 @@ use App\Http\Resources\UserRessources;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -29,10 +30,23 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return UserIdRessources
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'=>'required',
+                'email'=>'required',
+                'password'=>'required',
+            ]
+        );
+        $user = new User();
+        $user -> name = $request->get('name');
+        $user -> email = $request->get('email');
+        $user -> password = Hash::make($request->get('password'));
+        $user -> save();
+        return new UserIdRessources($user);
+
 
     }
 
@@ -79,6 +93,7 @@ class UserController extends Controller
         $comments = $user->comments()->paginate(5);
         return new AuthorCommentsRessources($comments);
     }
+
     public function getToken(Request $request){
         $request->validate([
             'email'=>'required',

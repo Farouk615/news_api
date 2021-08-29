@@ -16,11 +16,11 @@ class User extends \TCG\Voyager\Models\User
      *
      * @var array
      */
-    protected $fillable = [
+    protected $fillabe = [
         'name',
         'email',
         'password',
-        'api_token'
+        'avatar',
     ];
 
     /**
@@ -31,6 +31,8 @@ class User extends \TCG\Voyager\Models\User
     protected $hidden = [
         'password',
         'remember_token',
+        'api_token',
+
     ];
 
     /**
