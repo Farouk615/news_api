@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->group(function (){
     Route::post('updateuser/{id}','App\Http\Controllers\app\UserController@update');
     Route::post('posts','App\Http\Controllers\app\PostController@store');
+    Route::post('posts/{id}','App\Http\Controllers\app\PostController@update');
 
 
 

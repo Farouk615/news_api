@@ -75,9 +75,26 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $post = Post::find($id);
 
+        if ($request->has('title')){
+            $post->title=$request->get('title');
+        }
+        if ($request->has('content')){
+            $post->content=$request->get('content');
+        }
+
+
+        if($request->has('category_id')) {
+            if (intval($request->get('category_id')) != 0) {
+                $post->category_id = intval($request->get('category_id'));
+            } else {
+                echo 'failed in category id';
+            }
+
+            $post->save();
+            return new PostRessources($post);
+        }}
     /**
      * Remove the specified resource from storage.
      *
