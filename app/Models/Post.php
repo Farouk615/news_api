@@ -17,7 +17,7 @@ class Post extends Model
         'vote_down',
     ];
     public function author(){ // foreign key of author (author_id)
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id','id');
     }
     public  function  comments(){
         return $this->hasMany(Comments::class);
