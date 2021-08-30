@@ -103,7 +103,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+         Post::destroy($id);
     }
     public function comments($id){
         $post = Post::find($id);

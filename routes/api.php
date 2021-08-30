@@ -18,6 +18,10 @@ Route::middleware('auth:api')->group(function (){
     Route::post('updateuser/{id}','App\Http\Controllers\app\UserController@update');
     Route::post('posts','App\Http\Controllers\app\PostController@store');
     Route::post('posts/{id}','App\Http\Controllers\app\PostController@update');
+    Route::delete('posts/{id}/delete','App\Http\Controllers\app\PostController@destroy');
+    Route::delete('user/{id}/delete','App\Http\Controllers\app\UserController@destroy');
+    Route::delete('Comment/{id}/delete','App\Http\Controllers\app\CommentController@destroy');
+    Route::post('posts/{id}/comment','App\Http\Controllers\app\CommentController@store');
 
 
 

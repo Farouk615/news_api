@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\app;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CommentsRessources;
+use App\Http\Resources\CommentRessources;
+use App\Models\Comments;
 use App\Models\Post;
+use Carbon\Carbon;
+use Egulias\EmailValidator\Warning\Comment;
 use Illuminate\Http\Request;
+use Egulias\EmailValidator\EmailValidator;
+use Egulias\EmailValidator\Validation\RFCValidation;
 
 class CommentController extends Controller
 {
@@ -19,15 +24,24 @@ class CommentController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(Request $request , $id)
     {
-        //
+        $request->validate([
+            'content'=>'required',
+        ]);
+        if ( Post::find($id)){
+            $comment = new Comments();
+            $comment->content=$request->get('content');
+            $comment->post_id=$id;
+            $comment->date_written= Carbon::now()->toDateTimeString();
+            $comment->user_id=$request->user()->id;
+            $comment->save();
+            return new CommentRessources($comment);
+        }
+        else
+            return 'Post not found';
+
     }
 
     /**
@@ -61,7 +75,7 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Comments::destroy($id);
     }
 
 }

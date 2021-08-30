@@ -88,7 +88,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+
     }
     public function posts($id){
         $user = User::find($id);
