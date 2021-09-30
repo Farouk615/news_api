@@ -17,11 +17,9 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->dateTime('date_written');
-
             $table->string('title');
             $table->text('content');
             $table->string('featured_image')->nullable();
-
             $table->integer('vote_up')->nullable();
             $table->integer('vote_down')->nullable();
 

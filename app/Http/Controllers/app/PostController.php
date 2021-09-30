@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(5);
+        $posts = Post::with(['comments','author','Category'])->get();
         return new PostsRessources($posts);
     }
 
@@ -84,8 +84,9 @@ class PostController extends Controller
         if ($request->has('content')){
             $post->content=$request->get('content');
         }
-
-
+        if ($request->has('featured_image')){
+            $post->featured_image=$request->get('featured_image');
+        }
         if($request->has('category_id')) {
             if (intval($request->get('category_id')) != 0) {
                 $post->category_id = intval($request->get('category_id'));
@@ -93,9 +94,12 @@ class PostController extends Controller
                 echo 'failed in category id';
             }
 
-            $post->save();
-            return new PostRessources($post);
-        }}
+
+
+        }
+        $post->save();
+        return new PostRessources($post);
+    }
     /**
      * Remove the specified resource from storage.
      *
